@@ -11,7 +11,6 @@ const ShareSchedule = () => {
   const [schedules, setSchedules] = useState([]);
 
   console.log(schedules);
-  console.log(schedules?.bookedName);
 
   const shareSchedules = async () => {
     try {
@@ -62,8 +61,21 @@ const ShareSchedule = () => {
   return (
     <>
       <Navbar />
-      <div className="pt-28 pb-8">
-        <Table className="my-4" columns={columnOne} dataSource={schedules} />
+      <div className="bg-white">
+        <div className="relative pt-24 pb-8">
+          <div className="w-full">
+            <div className="w-full px-4 mx-auto max-w-[1400px]">
+              <div>
+                <h1>Available Schedules of User</h1>
+              </div>
+              <Table
+                className="my-4"
+                columns={columnOne}
+                dataSource={schedules}
+              />
+            </div>
+          </div>
+        </div>
       </div>
       <Footer />
     </>
