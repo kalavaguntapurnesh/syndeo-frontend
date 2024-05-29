@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Table } from "antd";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const ShareSchedule = () => {
   const params = useParams();
@@ -57,12 +59,13 @@ const ShareSchedule = () => {
   ];
 
   return (
-    <div>
-      {" "}
-      <div>
+    <>
+      <Navbar />
+      <div className="pt-28 pb-8">
         <Table className="my-4" columns={columnOne} dataSource={schedules} />
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 
