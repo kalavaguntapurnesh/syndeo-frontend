@@ -23,7 +23,6 @@ import ScheduleCreate from "./pages/ScheduleCreate";
 import BookingPage from "./pages/BookingPage";
 import ExistingSchedules from "./pages/ExistingSchedules";
 import UserSchedules from "./pages/UserSchedules";
-import Sharing from "./pages/Sharing";
 import MyAvailability from "./pages/MyAvailability";
 import ShareSchedule from "./pages/ShareSchedule";
 
