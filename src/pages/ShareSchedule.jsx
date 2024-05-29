@@ -11,6 +11,7 @@ const ShareSchedule = () => {
   const [schedules, setSchedules] = useState([]);
 
   console.log(schedules);
+  console.log(schedules?.bookedName);
 
   const shareSchedules = async () => {
     try {
