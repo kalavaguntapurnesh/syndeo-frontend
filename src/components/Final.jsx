@@ -123,7 +123,7 @@ const Final = () => {
                     <div className="mb-5 md:w-8/12 w-auto">
                       <a
                         href="/interviewer"
-                        className="hover:shadow-form rounded-md bg-colorFour hover:bg-colorFour transition duration-1000 ease-in-out py-3 px-12 text-base font-semibold text-white outline-none"
+                        className="hover:shadow-form rounded-3xl bg-colorFour hover:bg-colorFour transition duration-1000 ease-in-out py-3 px-12 text-base font-semibold text-white outline-none"
                       >
                         Book Now
                       </a>

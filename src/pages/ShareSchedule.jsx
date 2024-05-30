@@ -1,14 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Table } from "antd";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import Timings from "../components/Timings";
+import { useDispatch } from "react-redux";
+import { showLoading, hideLoading } from "../redux/features/alertSlice";
 
 const ShareSchedule = () => {
   const params = useParams();
 
   const [schedules, setSchedules] = useState([]);
+  const dispatch = useDispatch();
 
   console.log(schedules);
 
@@ -18,11 +21,14 @@ const ShareSchedule = () => {
         "https://syndeo-backend.onrender.com/auth/shareSchedules",
         { userId: params.id }
       );
+      dispatch(showLoading());
       if (response.data.status) {
         setSchedules(response.data.data);
+        dispatch(hideLoading());
       }
     } catch (error) {
       console.log(error);
+      dispatch(hideLoading());
     }
   };
 
@@ -30,33 +36,6 @@ const ShareSchedule = () => {
     shareSchedules();
     //eslint-disable-next-line
   }, []);
-
-  const columnOne = [
-    {
-      title: "Name of the User",
-      dataIndex: "doctorFirstName",
-    },
-    {
-      title: "Primary Email",
-      dataIndex: "doctorEmail",
-    },
-    {
-      title: "Country of User",
-      dataIndex: "doctorCountry",
-    },
-    {
-      title: "Starting Time",
-      dataIndex: "startTime",
-    },
-    {
-      title: "Ending Time",
-      dataIndex: "endTime",
-    },
-    {
-      title: "Schedule Link",
-      dataIndex: "Link",
-    },
-  ];
 
   return (
     <>
@@ -66,15 +45,14 @@ const ShareSchedule = () => {
           <div className="w-full">
             <div className="w-full px-4 mx-auto max-w-[1400px]">
               <div className="flex justify-center items-center mt-2 mb-2">
-                <h1 className="text-2xl font-semibold text-colorFour">
+                <h1 className="text-2xl font-bold text-colorFour">
                   Available Schedules of User
                 </h1>
               </div>
-              <Table
-                className="my-4"
-                columns={columnOne}
-                dataSource={schedules}
-              />
+
+              {schedules.map((val) => {
+                return <Timings key={val} timing={val}></Timings>;
+              })}
             </div>
           </div>
         </div>

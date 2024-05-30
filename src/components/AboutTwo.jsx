@@ -106,7 +106,7 @@ const AboutTwo = () => {
                 <div className="my-4 flex justify-center lg:justify-start">
                   <a
                     href="/contact"
-                    className="bg-colorFour text-white text-center hover:bg-colorTwo transition duration-1000 ease-in-out font-semibold rounded-lg px-8 py-3"
+                    className="bg-colorFour text-white text-center hover:bg-colorTwo transition duration-1000 ease-in-out font-semibold rounded-3xl px-8 py-3"
                   >
                     Contact Us
                   </a>
