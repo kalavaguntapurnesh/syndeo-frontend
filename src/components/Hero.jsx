@@ -32,7 +32,7 @@ const Hero = () => {
             <a
               href="/login"
               className="bg-colorFour hover:bg-[#14a800] font-semibold outline-none
-              rounded-md hover:shadow-form transition duration-1000 ease-in-out text-white px-8 py-2.5 text-center"
+              rounded-3xl hover:shadow-form transition duration-1000 ease-in-out text-white px-8 py-2.5 text-center"
             >
               Get Started Now
             </a>
