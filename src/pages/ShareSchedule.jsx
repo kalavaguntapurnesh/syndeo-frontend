@@ -46,7 +46,7 @@ const ShareSchedule = () => {
             <div className="w-full px-4 mx-auto max-w-[1400px]">
               <div className="flex justify-center items-center mt-2 mb-2">
                 <h1 className="text-2xl font-bold text-colorFour">
-                  Available Schedules of User
+                  Available Schedules
                 </h1>
               </div>
 
