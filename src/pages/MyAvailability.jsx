@@ -48,7 +48,7 @@ const MyAvailability = () => {
     try {
       //   dispatch(showLoading());
       const response = await axios.post(
-        "https://syndeo-backend.onrender.com/auth/auth/userSchedules",
+        "https://syndeo-backend.onrender.com/auth/userSchedules",
         { doctorId: user?._id },
         {
           headers: {

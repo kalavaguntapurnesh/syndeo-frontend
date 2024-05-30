@@ -25,6 +25,7 @@ import ExistingSchedules from "./pages/ExistingSchedules";
 import UserSchedules from "./pages/UserSchedules";
 import MyAvailability from "./pages/MyAvailability";
 import ShareSchedule from "./pages/ShareSchedule";
+import Book from "./pages/Book";
 // import UserRegister from "./pages/UserRegister";
 
 function App() {
@@ -221,6 +222,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <MyAvailability />
+              </ProtectedRoute>
+            }
+          ></Route>
+
+          <Route
+            path="/book/:id"
+            element={
+              <ProtectedRoute>
+                <Book />
               </ProtectedRoute>
             }
           ></Route>
