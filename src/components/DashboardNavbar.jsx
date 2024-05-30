@@ -70,8 +70,8 @@ const DashboardNavbar = () => {
 
   const userMenu = [
     {
-      name: "Home",
-      path: "/dashboard",
+      name: "Book a schedule",
+      path: `/book/${user?._id}`,
       icon: FaHome,
     },
     {
@@ -79,11 +79,11 @@ const DashboardNavbar = () => {
       path: `/userSchedules/${user?._id}`,
       icon: MdOutlineTimer,
     },
-    {
-      name: "Profile",
-      path: `/profile/${user?._id}`,
-      icon: FaRegUser,
-    },
+    // {
+    //   name: "Book a Schedule",
+    //   path: `/book/${user?._id}`,
+    //   icon: FaRegUser,
+    // },
   ];
 
   const facilitatorMenu = [
@@ -112,11 +112,11 @@ const DashboardNavbar = () => {
       path: `/existingSchedules/${user?._id}`,
       icon: FaHome,
     },
-    {
-      name: "Profile",
-      path: `/profile/${user?._id}`,
-      icon: FaRegUser,
-    },
+    // {
+    //   name: "Profile",
+    //   path: `/profile/${user?._id}`,
+    //   icon: FaRegUser,
+    // },
   ];
 
   const organizerMenu = [
@@ -140,11 +140,11 @@ const DashboardNavbar = () => {
       path: `/myAvailability/${user?._id}`,
       icon: FaHome,
     },
-    {
-      name: "Profile",
-      path: `/profile/${user?._id}`,
-      icon: FaRegUser,
-    },
+    // {
+    //   name: "Profile",
+    //   path: `/profile/${user?._id}`,
+    //   icon: FaRegUser,
+    // },
   ];
 
   const NavbarMenu =
