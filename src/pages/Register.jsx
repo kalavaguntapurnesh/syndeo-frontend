@@ -197,9 +197,9 @@ function Register() {
                                   <option value="organizer" id="organizer">
                                     Organizer
                                   </option>
-                                  {/* <option value="participant" id="participant">
+                                  <option value="participant" id="participant">
                                     Participant
-                                  </option> */}
+                                  </option>
                                 </select>
                               </div>
                             </div>
