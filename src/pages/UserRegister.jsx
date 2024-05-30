@@ -11,7 +11,7 @@ import { eye } from "react-icons-kit/feather/eye";
 import Select from "react-select";
 import { Country, State, City } from "country-state-city";
 
-function Register() {
+function UserRegister() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -115,7 +115,7 @@ function Register() {
                       <div className="w-full bg-white rounded-lg shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] dark:border md:mt-0 sm:max-w-xl xl:p-0 dark:bg-gray-800 dark:border-gray-700 ">
                         <div className="p-6 space-y-4 md:space-y-4 sm:p-8">
                           <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-colorThree md:text-2xl dark:text-white">
-                            Sign up to your account
+                            Welcome User, Sign up to your account
                           </h1>
                           <form
                             className="space-y-4 md:space-y-6"
@@ -177,30 +177,23 @@ function Register() {
                                   onChange={(e) => setEmail(e.target.value)}
                                 ></input>
                               </div>
+
                               <div>
                                 <label
-                                  htmlFor="role"
+                                  htmlFor="email"
                                   className="block mb-2 text-sm font-medium text-colorThree dark:text-white"
                                 >
-                                  Select Role
+                                  Secondary Email (Optional)
                                 </label>
-                                <select
-                                  id="role"
-                                  name="role"
-                                  className=" border border-gray-300 text-gray-900 sm:text-sm rounded-md focus:ring-primary-600 focus:border-primary-600 block w-full py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                  onChange={(e) => setRole(e.target.value)}
-                                >
-                                  <option selected>Choose your role</option>
-                                  <option value="facilitator" id="facilitator">
-                                    Facilitator
-                                  </option>
-                                  <option value="organizer" id="organizer">
-                                    Organizer
-                                  </option>
-                                  {/* <option value="participant" id="participant">
-                                    Participant
-                                  </option> */}
-                                </select>
+                                <input
+                                  type="email"
+                                  name="secondaryEmail"
+                                  id="secondaryEmail"
+                                  placeholder="name@domain.com"
+                                  className=" border border-gray-300 text-gray-900 sm:text-sm rounded-md focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                  required="true"
+                                  onChange={(e) => setEmail(e.target.value)}
+                                ></input>
                               </div>
                             </div>
 
@@ -406,4 +399,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default UserRegister;

@@ -25,6 +25,8 @@ import ExistingSchedules from "./pages/ExistingSchedules";
 import UserSchedules from "./pages/UserSchedules";
 import MyAvailability from "./pages/MyAvailability";
 import ShareSchedule from "./pages/ShareSchedule";
+import UserRegister from "./pages/UserRegister";
+import UserLogin from "./pages/UserLogin";
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
@@ -73,6 +75,22 @@ function App() {
             element={
               <PublicRoute>
                 <Register />
+              </PublicRoute>
+            }
+          ></Route>
+          <Route
+            path="/userRegister"
+            element={
+              <PublicRoute>
+                <UserRegister />
+              </PublicRoute>
+            }
+          ></Route>
+          <Route
+            path="/userLogin"
+            element={
+              <PublicRoute>
+                <UserLogin />
               </PublicRoute>
             }
           ></Route>
