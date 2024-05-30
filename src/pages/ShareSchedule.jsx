@@ -13,8 +13,6 @@ const ShareSchedule = () => {
   const [schedules, setSchedules] = useState([]);
   const dispatch = useDispatch();
 
-  console.log(schedules);
-
   const shareSchedules = async () => {
     try {
       const response = await axios.post(
