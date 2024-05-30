@@ -15,13 +15,13 @@ function UserRegister() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [secondaryEmail, setSecondaryEmail] = useState("");
   const [password, setPassword] = useState("");
   const [type, setType] = useState("password");
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedState, setSelectedState] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
   const [icon, setIcon] = useState(eyeOff);
-  const [role, setRole] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -53,15 +53,15 @@ function UserRegister() {
     e.preventDefault();
     dispatch(showLoading());
     axios
-      .post("https://syndeo-backend.onrender.com/auth/register", {
+      .post("https://syndeo-backend.onrender.com/auth/userRegister", {
         firstName,
         lastName,
         email,
+        secondaryEmail,
         selectedCountry,
         selectedState,
         selectedCity,
         password,
-        role,
         phoneNumber,
       })
       .then((response) => {
@@ -192,7 +192,9 @@ function UserRegister() {
                                   placeholder="name@domain.com"
                                   className=" border border-gray-300 text-gray-900 sm:text-sm rounded-md focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                   required="true"
-                                  onChange={(e) => setEmail(e.target.value)}
+                                  onChange={(e) =>
+                                    setSecondaryEmail(e.target.value)
+                                  }
                                 ></input>
                               </div>
                             </div>

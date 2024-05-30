@@ -30,7 +30,7 @@ function UserLogin() {
     e.preventDefault();
     dispatch(showLoading());
     axios
-      .post("https://syndeo-backend.onrender.com/auth/login", {
+      .post("https://syndeo-backend.onrender.com/auth/userLogin", {
         email,
         password,
       })

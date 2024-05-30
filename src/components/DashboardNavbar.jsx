@@ -75,7 +75,7 @@ const DashboardNavbar = () => {
       icon: FaHome,
     },
     {
-      name: "My Schedules",
+      name: "My Bookings",
       path: `/userSchedules/${user?._id}`,
       icon: MdOutlineTimer,
     },
