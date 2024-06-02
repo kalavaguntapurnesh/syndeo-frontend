@@ -17,7 +17,7 @@ const ShareSchedule = () => {
     try {
       const response = await axios.post(
         "https://syndeo-backend.onrender.com/auth/shareSchedules",
-        { userId: params.id }
+        { organizerId: params.id }
       );
       dispatch(showLoading());
       if (response.data.status) {
