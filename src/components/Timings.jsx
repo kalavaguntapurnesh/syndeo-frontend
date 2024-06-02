@@ -1,13 +1,20 @@
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+// import { useNavigate } from "react-router-dom";
+import Modal from "./Modal";
 
 const Timings = ({ timing }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+
+  const id = timing.organizerId;
+  // console.log("Timing is", timing);
+
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <>
       <div
         className="p-2 cursor-pointer w-full rounded-xl mt-4 mb-2 bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]"
-        onClick={() => navigate("/login")}
+        onClick={() => setShowModal(true)}
       >
         <div className="flex md:flex-row flex-col justify-between">
           <div className="md:w-1/3 flex  justify-center items-center">
@@ -60,6 +67,13 @@ const Timings = ({ timing }) => {
           </div>
         </div>
       </div>
+      <Modal
+        id={id}
+        startTime={timing.startTime}
+        endTime={timing.endTime}
+        isVisible={showModal}
+        onClose={() => setShowModal(false)}
+      ></Modal>
     </>
   );
 };
