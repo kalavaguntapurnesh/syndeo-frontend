@@ -46,7 +46,7 @@ const MyAvailability = () => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "http://localhost:8080/auth/book-appointment",
+        "https://syndeo-backend.onrender.com/auth/book-appointment",
         {
           organizerId: params.id,
           startTime: startTime.toString(),
