@@ -77,7 +77,7 @@ const MyAvailability = () => {
   const getExistingSchedules = async () => {
     try {
       const response = await axios.post(
-        "https://syndeo-backend.onrender.com/auth/auth/existingSchedules",
+        "https://syndeo-backend.onrender.com/auth/existingSchedules",
         { userId: params.id },
         {
           headers: {
