@@ -49,7 +49,7 @@ const Schedules = ({ schedule }) => {
                       className="bg-green-700
                       rounded-3xl text-white px-12 py-3 text-center text-sm"
                     >
-                      Book the slot
+                     No Booking Yet
                     </div>
                   </p>
                 );
