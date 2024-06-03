@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { Table } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { EmailShareButton, EmailIcon } from "react-share";
@@ -11,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "../redux/features/alertSlice";
 import { isWeekend } from "date-fns";
 import DatePicker from "react-datepicker";
+import Schedules from "../components/Schedules";
 
 const MyAvailability = () => {
   const { user } = useSelector((state) => state.user);
@@ -40,7 +40,6 @@ const MyAvailability = () => {
   const shareUrl = `https://syndeo-frontend.vercel.app/share/${user?._id}`;
 
   const [schedules, setSchedules] = useState([]);
-  const [mySchedules, setMySchedules] = useState([]);
 
   const handleSchedule = async () => {
     try {
@@ -78,7 +77,7 @@ const MyAvailability = () => {
     try {
       const response = await axios.post(
         "https://syndeo-backend.onrender.com/auth/existingSchedules",
-        { userId: params.id },
+        { organizerId: params.id },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -98,44 +97,8 @@ const MyAvailability = () => {
     }
   };
 
-  const getMySchedules = async () => {
-    try {
-      //   dispatch(showLoading());
-      const response = await axios.post(
-        "https://syndeo-backend.onrender.com/auth/userSchedules",
-        { doctorId: user?._id },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      //   dispatch(hideLoading());
-      if (response.data.status) {
-        setMySchedules(response.data.data);
-        // console.log(
-        //   "Called the booking for me by other users... which is userSchedules",
-        //   mySchedules
-        // );
-      }
-    } catch (error) {
-      console.log(error);
-      //   dispatch(hideLoading());
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Something went wrong!",
-      });
-    }
-  };
-
   useEffect(() => {
     getExistingSchedules();
-    //eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
-    getMySchedules();
     //eslint-disable-next-line
   }, []);
 
@@ -143,33 +106,6 @@ const MyAvailability = () => {
     handleSchedule();
     //eslint-disable-next-line
   }, []);
-
-  const columnOne = [
-    {
-      title: "Name of the User",
-      dataIndex: "doctorFirstName",
-    },
-    {
-      title: "Primary Email",
-      dataIndex: "doctorEmail",
-    },
-    {
-      title: "Country of User",
-      dataIndex: "doctorCountry",
-    },
-    {
-      title: "Starting Time",
-      dataIndex: "startTime",
-    },
-    {
-      title: "Ending Time",
-      dataIndex: "endTime",
-    },
-    {
-      title: "Schedule Link",
-      dataIndex: "Link",
-    },
-  ];
 
   return (
     <Layout>
@@ -179,7 +115,9 @@ const MyAvailability = () => {
         </h1>
 
         <div>
-          <Table className="my-4" columns={columnOne} dataSource={schedules} />
+          {schedules.map((val) => {
+            return <Schedules key={val} schedule={val}></Schedules>;
+          })}
         </div>
 
         <div className="flex justify-center items-center">
@@ -247,7 +185,7 @@ const MyAvailability = () => {
               className="p-2 bg-colorThree text-white text-center font-medium rounded-lg w-full m-2 md:w-[25%]"
               onClick={handleSchedule}
             >
-              Book an Appointment
+              Schedule an Appointment
             </button>
           </div>
         </div>
