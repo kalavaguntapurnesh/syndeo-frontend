@@ -11,15 +11,19 @@ import { hideLoading, showLoading } from "../redux/features/alertSlice";
 import { isWeekend } from "date-fns";
 import DatePicker from "react-datepicker";
 import Schedules from "../components/Schedules";
+import ShareModal from "../components/ShareModal";
 
 const MyAvailability = () => {
   const { user } = useSelector((state) => state.user);
   const params = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const id = params.id;
 
   const [startTime, setStartTime] = useState();
   const [endTime, setEndTime] = useState();
+
+  const [showModal, setShowModal] = useState(false);
 
   const filterPassedTime = (time) => {
     const currentDate = new Date();
@@ -110,25 +114,40 @@ const MyAvailability = () => {
   return (
     <Layout>
       <div>
-        <h1 className="m-3 text-center font-bold text-colorFour leading-normal tracking-normal text-xl">
-          My availability
-        </h1>
+        <div className="flex justify-between items-center">
+          <h1 className="m-3 text-center font-bold text-colorFour leading-normal tracking-normal text-xl">
+            My availability
+          </h1>
+          <div
+            className="flex justify-center items-center"
+            onClick={() => setShowModal(true)}
+          >
+            {/* <EmailShareButton
+              url={shareUrl}
+              quote={"Title or jo bhi aapko likhna ho"}
+              hashtag={"#portfolio..."}
+              className="flex justify-center items-center"
+            >
+              <EmailIcon size={40} round={true} />
+            </EmailShareButton> */}
+            <div
+              className="py-2.5 px-8 border-gray-600 cursor-pointer font-semibold bg-colorFour
+                  rounded-3xl text-white text-sm"
+            >
+              Share Schedules
+            </div>
+          </div>
+          <ShareModal
+            id={id}
+            isVisible={showModal}
+            onClose={() => setShowModal(false)}
+          ></ShareModal>
+        </div>
 
         <div>
           {schedules.map((val) => {
             return <Schedules key={val} schedule={val}></Schedules>;
           })}
-        </div>
-
-        <div className="flex justify-center items-center">
-          <EmailShareButton
-            url={shareUrl}
-            quote={"Title or jo bhi aapko likhna ho"}
-            hashtag={"#portfolio..."}
-            className="flex justify-center items-center"
-          >
-            <EmailIcon size={40} round={true} />
-          </EmailShareButton>
         </div>
 
         <div className="">
