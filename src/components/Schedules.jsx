@@ -35,7 +35,7 @@ const Schedules = ({ schedule }) => {
                 return (
                   <p className="lg:p-4 p-[11px] cursor-pointer font-medium">
                     <div
-                      className="bg-red-500
+                      className="bg-colorFour
                                 rounded-3xl text-white px-8 py-3 text-center text-sm"
                     >
                       Already Booked
@@ -46,10 +46,10 @@ const Schedules = ({ schedule }) => {
                 return (
                   <p className="lg:p-4 p-[11px] cursor-pointer font-medium">
                     <div
-                      className="bg-green-700
+                      className="bg-gray-600
                       rounded-3xl text-white px-12 py-3 text-center text-sm"
                     >
-                     No Booking Yet
+                      No Booking Yet
                     </div>
                   </p>
                 );
