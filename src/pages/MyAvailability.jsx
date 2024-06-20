@@ -41,8 +41,6 @@ const MyAvailability = () => {
     return !isWeekendDay(date);
   };
 
-  const shareUrl = `https://syndeo-frontend.vercel.app/share/${user?._id}`;
-
   const [schedules, setSchedules] = useState([]);
 
   const handleSchedule = async () => {
@@ -122,14 +120,6 @@ const MyAvailability = () => {
             className="flex justify-center items-center"
             onClick={() => setShowModal(true)}
           >
-            {/* <EmailShareButton
-              url={shareUrl}
-              quote={"Title or jo bhi aapko likhna ho"}
-              hashtag={"#portfolio..."}
-              className="flex justify-center items-center"
-            >
-              <EmailIcon size={40} round={true} />
-            </EmailShareButton> */}
             <div
               className="py-2.5 px-8 border-gray-600 cursor-pointer font-semibold bg-colorFour
                   rounded-3xl text-white text-sm"
