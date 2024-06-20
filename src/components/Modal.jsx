@@ -197,12 +197,14 @@ const Modal = ({ isVisible, onClose, id, startTime, endTime }) => {
                   ></input>
                 </div>
               </div>
-              <button
-                type="submit"
-                className="pt-6 w-full text-white bg-colorFour hover:bg-colorFour transition ease-in-out duration-1000 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center cursor-pointer"
-              >
-                Book the Slot
-              </button>
+              <div className="pt-4">
+                <button
+                  type="submit"
+                  className="mt-4 w-full text-white bg-colorFour hover:bg-colorFour transition ease-in-out duration-1000 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center cursor-pointer"
+                >
+                  Book the Slot
+                </button>
+              </div>
             </form>
           </div>
         </div>
