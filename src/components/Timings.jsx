@@ -1,14 +1,47 @@
 import { useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
+import moment from "moment";
 
 const Timings = ({ timing }) => {
   // const navigate = useNavigate();
 
+  const [slots, setSlots] = useState([]);
+
   const id = timing.organizerId;
+
+  console.log("Start Time is:", timing.startTime);
+  console.log("End Time is:", timing.endTime);
+
+  console.log("Slots are", slots);
+
   // console.log("Timing is", timing);
 
   const [showModal, setShowModal] = useState(false);
+
+  function intervals(startString, endString) {
+    var start = moment(startString, "hh:mm a");
+    var end = moment(endString, "hh:mm a");
+    console.log("Moment start ", start);
+    console.log("Moment end", end);
+    start.minutes(Math.ceil(start.minutes() / 30) * 30);
+
+    var current = moment(start);
+    console.log("Current is ", current);
+
+    while (current <= end) {
+      if (slots.includes(current.format("hh:mm a"))) {
+        return null;
+      } else {
+        slots.push(current.format("hh:mm a"));
+        current.add(30, "minutes");
+      }
+    }
+    console.log("Slots in the function is", slots)
+    return slots;
+  }
+
+  intervals(timing.startTime, timing.endTime);
 
   return (
     <>
@@ -65,6 +98,21 @@ const Timings = ({ timing }) => {
               </a>
             </p>
           </div>
+        </div>
+
+        <div className="grid gap-2 grid-cols-5">
+          {slots && slots.length > 0
+            ? slots.map((time, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="bg-[#f7f7f7] text-center rounded-lg mx-4 my-4 px-6 py-4 cursor-pointer"
+                  >
+                    <p className="font-bold">{time}</p>
+                  </div>
+                );
+              })
+            : null}
         </div>
       </div>
       <Modal
