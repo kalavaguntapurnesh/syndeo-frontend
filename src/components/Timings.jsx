@@ -10,11 +10,6 @@ const Timings = ({ timing }) => {
 
   const id = timing.organizerId;
 
-  console.log("Start Time is:", timing.startTime);
-  console.log("End Time is:", timing.endTime);
-
-  console.log("Slots are", slots);
-
   // console.log("Timing is", timing);
 
   const [showModal, setShowModal] = useState(false);
@@ -27,7 +22,6 @@ const Timings = ({ timing }) => {
     start.minutes(Math.ceil(start.minutes() / 30) * 30);
 
     var current = moment(start);
-    console.log("Current is ", current);
 
     while (current <= end) {
       if (slots.includes(current.format("hh:mm a"))) {
@@ -37,7 +31,7 @@ const Timings = ({ timing }) => {
         current.add(30, "minutes");
       }
     }
-    console.log("Slots in the function is", slots)
+    console.log("Slots in the function is", slots);
     return slots;
   }
 
