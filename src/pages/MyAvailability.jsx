@@ -42,7 +42,6 @@ const MyAvailability = () => {
   };
 
   const [schedules, setSchedules] = useState([]);
-
   const handleSchedule = async () => {
     try {
       dispatch(showLoading());
@@ -50,9 +49,9 @@ const MyAvailability = () => {
         "https://syndeo-backend.onrender.com/auth/book-appointment",
         {
           organizerId: params.id,
-          startTime: startTime.toString(),
+          startTime: startTime,
           organizerEmail: user?.email,
-          endTime: endTime.toString(),
+          endTime: endTime,
         },
         {
           headers: {
