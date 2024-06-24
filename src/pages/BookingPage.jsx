@@ -63,8 +63,8 @@ const BookingPage = () => {
         {
           doctorId: params.id,
           userId: user?._id,
-          startTime: startTime.toString(),
-          endTime: endTime.toString(),
+          startTime: startTime,
+          endTime: endTime,
           doctorFirstName: facilitator?.firstName,
           doctorLastName: facilitator?.lastName,
           doctorEmail: facilitator?.email,
@@ -112,8 +112,8 @@ const BookingPage = () => {
         {
           doctorId: params.id,
           userId: user?._id,
-          startTime: startTime.toString(),
-          endTime: endTime.toString(),
+          startTime: startTime,
+          endTime: endTime,
         },
         {
           headers: {
