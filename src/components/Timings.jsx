@@ -10,7 +10,8 @@ const Timings = ({ timing }) => {
 
   const id = timing.organizerId;
 
-  // console.log("Timing is", timing);
+  console.log(timing.startTime);
+  console.log(timing.endTime);
 
   const [showModal, setShowModal] = useState(false);
 
