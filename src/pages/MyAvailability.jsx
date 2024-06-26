@@ -49,9 +49,9 @@ const MyAvailability = () => {
         "https://syndeo-backend.onrender.com/auth/book-appointment",
         {
           organizerId: params.id,
-          startTime: startTime,
+          startTime: startTime.toString(),
           organizerEmail: user?.email,
-          endTime: endTime,
+          endTime: endTime.toString(),
         },
         {
           headers: {
