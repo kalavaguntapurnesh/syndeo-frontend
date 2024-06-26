@@ -12,6 +12,7 @@ import { isWeekend } from "date-fns";
 import DatePicker from "react-datepicker";
 import Schedules from "../components/Schedules";
 import ShareModal from "../components/ShareModal";
+import moment from "moment";
 
 const MyAvailability = () => {
   const { user } = useSelector((state) => state.user);
@@ -20,10 +21,14 @@ const MyAvailability = () => {
   const dispatch = useDispatch();
   const id = params.id;
 
+  const [slots, setSlots] = useState([]);
+
   const [startTime, setStartTime] = useState();
   const [endTime, setEndTime] = useState();
 
   const [showModal, setShowModal] = useState(false);
+
+  console.log("Slots are", slots);
 
   const filterPassedTime = (time) => {
     const currentDate = new Date();
@@ -41,6 +46,29 @@ const MyAvailability = () => {
     return !isWeekendDay(date);
   };
 
+  function intervals(startString, endString) {
+    var start = moment(startString, "hh:mm a");
+    var end = moment(endString, "hh:mm a");
+    start.minutes(Math.ceil(start.minutes() / 30) * 30);
+
+    var current = moment(start);
+
+    while (current <= end) {
+      if (slots.includes(current.format("hh:mm a"))) {
+        return null;
+      } else {
+        slots.push(current.format("hh:mm a"));
+        current.add(30, "minutes");
+        console.log(slots);
+        console.log(current);
+      }
+    }
+
+    return slots;
+  }
+
+  intervals(startTime, endTime);
+
   const [schedules, setSchedules] = useState([]);
   const handleSchedule = async () => {
     try {
@@ -52,6 +80,7 @@ const MyAvailability = () => {
           startTime: startTime.toString(),
           organizerEmail: user?.email,
           endTime: endTime.toString(),
+          slots: slots,
         },
         {
           headers: {
@@ -195,6 +224,21 @@ const MyAvailability = () => {
             >
               Schedule an Appointment
             </button>
+          </div>
+
+          <div className="grid gap-2 grid-cols-5">
+            {slots && slots.length > 0
+              ? slots.map((time, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="bg-[#f7f7f7] text-center rounded-lg mx-4 my-4 px-6 py-4 cursor-pointer"
+                    >
+                      <p className="font-bold">{time}</p>
+                    </div>
+                  );
+                })
+              : null}
           </div>
         </div>
       </div>
