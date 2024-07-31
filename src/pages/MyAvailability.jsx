@@ -1,7 +1,6 @@
 import Layout from "../components/Layout";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -13,232 +12,182 @@ import DatePicker from "react-datepicker";
 import Schedules from "../components/Schedules";
 import ShareModal from "../components/ShareModal";
 import moment from "moment";
+import Calendar from "react-calendar";
+import axios from "axios";
+import "react-calendar/dist/Calendar.css";
 
 const MyAvailability = () => {
   const { user } = useSelector((state) => state.user);
   const params = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const id = params.id;
 
-  const [slots, setSlots] = useState([]);
+  const [clicked, setClicked] = useState(Array(48).fill(false));
+  const [date, setDate] = useState(new Date());
+  const [selectedTimeSlots, setSelectedTimeSlots] = useState([]);
+  const [myDate, setMyDate] = useState();
+  const [showComponent, setShowComponent] = useState(false);
+  const one = [];
+  const timeSlots = [];
+  const [result, setResult] = useState([]);
+  const [commonValues, setCommonValues] = useState([]);
+  const [uniqueValues, setUniqueValues] = useState([]);
+  const [buttonContent, setButtonContent] = useState("Fetch Time Slots");
 
-  const [startTime, setStartTime] = useState();
-  const [endTime, setEndTime] = useState();
-
-  const [showModal, setShowModal] = useState(false);
-
-  console.log("Slots are", slots);
-
-  const filterPassedTime = (time) => {
-    const currentDate = new Date();
-    // console.log("Current Date:", currentDate);
-    const selectedDate = new Date(time);
-    // console.log("Selected Date:", selectedDate);
-    return currentDate.getTime() < selectedDate.getTime();
+  const handleDayClick = (value) => {
+    setDate(value);
+    getTimeSlots(date);
+    setShowComponent(true);
+    setButtonContent("Save Time Slots");
   };
 
-  const isWeekendDay = (date) => {
-    return isWeekend(date);
+  const handleMyDate = (value) => {
+    setMyDate(value);
+    // getTimeSlots(value);
   };
 
-  const filterWeekends = (date) => {
-    return !isWeekendDay(date);
+  const handleTimeSlotClick = (timeSlot, index) => {
+    setSelectedTimeSlots([...selectedTimeSlots, timeSlot]);
+    setClicked((prevClicked) => {
+      const newClicked = [...prevClicked];
+      newClicked[index] = !newClicked[index];
+      return newClicked;
+    });
   };
 
-  function intervals(startString, endString) {
-    var start = moment(startString, "hh:mm a");
-    var end = moment(endString, "hh:mm a");
-    start.minutes(Math.ceil(start.minutes() / 30) * 30);
-
-    var current = moment(start);
-
-    while (current <= end) {
-      if (slots.includes(current.format("hh:mm a"))) {
-        return null;
-      } else {
-        slots.push(current.format("hh:mm a"));
-        current.add(30, "minutes");
-        console.log(slots);
-        console.log(current);
-      }
-    }
-
-    return slots;
-  }
-
-  intervals(startTime, endTime);
-
-  const [schedules, setSchedules] = useState([]);
-  const handleSchedule = async () => {
+  const getTimeSlots = async (value) => {
     try {
-      dispatch(showLoading());
+      const newDate = value.toString();
       const response = await axios.post(
-        "https://syndeo-backend.onrender.com/auth/book-appointment",
+        "http://localhost:8080/auth/getTimeSlots",
         {
+          newDate: newDate,
           organizerId: params.id,
-          startTime: startTime.toString(),
-          organizerEmail: user?.email,
-          endTime: endTime.toString(),
-          slots: slots,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
         }
       );
-      dispatch(hideLoading());
+      if (response.data) {
+        setResult(response.data);
+        result.map((item) => {
+          item.userPosts.map((timeSlot, index) => {
+            one.push(timeSlot.slotTime);
+          });
+        });
+        const common = one.filter((value) => timeSlots.includes(value));
+        const unique = timeSlots.filter((value) => !one.includes(value));
+        setCommonValues(common);
+        setUniqueValues(unique);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const saveTimeSlots = async () => {
+    try {
+      const newDate = date.toString();
+      const response = await axios.post(
+        "http://localhost:8080/auth/time-slots",
+        {
+          organizerId: user?._id,
+          newDate,
+          timeSlots: selectedTimeSlots,
+        }
+      );
+
       if (response.data.status) {
-        navigate("/dashboard");
         Swal.fire({
-          title: "Appointment Booking Success",
+          title: "Slots Saved Successfully",
           icon: "success",
         });
-        // console.log(response.data.message);
+        setShowComponent(false);
+        setTimeout(function () {
+          window.location.reload();
+        }, 1500);
       }
     } catch (error) {
-      dispatch(hideLoading());
-      console.log(error);
-    }
-  };
-
-  const getExistingSchedules = async () => {
-    try {
-      const response = await axios.post(
-        "https://syndeo-backend.onrender.com/auth/existingSchedules",
-        { organizerId: params.id },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      if (response.data.status) {
-        setSchedules(response.data.data);
-      }
-    } catch (error) {
-      console.log(error);
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Something went wrong!",
       });
+      setShowComponent(false);
     }
   };
 
-  useEffect(() => {
-    getExistingSchedules();
-    //eslint-disable-next-line
-  }, []);
+  const renderTimeSlots = () => {
+    for (let i = 0; i < 24; i++) {
+      for (let j = 0; j < 2; j++) {
+        const hour = i < 10 ? `0${i}` : i;
+        const minutes = j === 0 ? "00" : "30";
+        if (hour >= 12) {
+          timeSlots.push(`${hour}:${minutes} PM`);
+        } else {
+          timeSlots.push(`${hour}:${minutes} AM`);
+        }
+      }
+    }
 
-  useEffect(() => {
-    handleSchedule();
-    //eslint-disable-next-line
-  }, []);
+    return (
+      <div className="flex justify-center items-center flex-col">
+        <div className="pt-4 pb-4">
+          <h2 className="text-2xl font-semibold text-colorFour">
+            Your time slots for {date.toDateString()}
+          </h2>
+        </div>
+        <ul className="grid md:grid-cols-8 grid-cols-4 gap-2 max-w-[1400px]">
+          {timeSlots.map((slot, index) =>
+            commonValues.includes(slot) ? (
+              <li
+                key={index}
+                className="px-4 py-2 rounded bg-gray-400 text-white font-semibold"
+              >
+                {slot}
+              </li>
+            ) : (
+              <li
+                key={index}
+                onClick={() => {
+                  handleTimeSlotClick(slot, index);
+                }}
+                className={`px-4 py-2 rounded ${
+                  clicked[index]
+                    ? "bg-blue-500 text-white cursor-pointer font-semibold"
+                    : "bg-cdnColor cursor-pointer font-semibold text-white"
+                }`}
+              >
+                {slot}
+              </li>
+            )
+          )}
+        </ul>
+      </div>
+    );
+  };
 
   return (
     <Layout>
       <div>
-        <div className="flex justify-between items-center">
-          <h1 className="m-3 text-center font-bold text-colorFour leading-normal tracking-normal text-xl">
-            My availability
+        <div className="mb-6">
+          <h1 className="text-center text-colorFour font-semibold text-3xl uppercase">
+            Schedule <span className="text-cdnColorTwo">your</span> timings
           </h1>
-          <div
-            className="flex justify-center items-center"
-            onClick={() => setShowModal(true)}
-          >
-            <div
-              className="py-2.5 px-8 border-gray-600 cursor-pointer font-semibold bg-colorFour
-                  rounded-3xl text-white text-sm"
-            >
-              Share Schedules
-            </div>
-          </div>
-          <ShareModal
-            id={id}
-            isVisible={showModal}
-            onClose={() => setShowModal(false)}
-          ></ShareModal>
+        </div>
+        <div className="flex justify-center items-center mt-2 mb-2 text-colorFour font-medium">
+          <p>Select date & time to schedule appointments</p>
         </div>
 
-        <div>
-          {schedules.map((val) => {
-            return <Schedules key={val} schedule={val}></Schedules>;
-          })}
-        </div>
-
-        <div className="">
-          <h1 className="text-center text-colorFour font-semibold text-3xl mt-8">
-            Create a Schedule
-          </h1>
-
-          <div className="flex justify-center items-center">
-            <h1 className="font-semibold">Select Starting Time:</h1>
-            <div>
-              <DatePicker
-                className="m-2 w-full rounded p-3"
-                required="true"
-                minDate={new Date()}
-                isClearable
-                placeholderText="Select start time"
-                filterTime={filterPassedTime}
-                filterDate={filterWeekends}
-                showTimeSelect
-                withPortal
-                dateFormat="dd/MM/yyyy h:mm aa"
-                minTime={new Date(0, 0, 0, 9, 30)}
-                maxTime={new Date(0, 0, 0, 20, 0)}
-                selected={startTime}
-                onChange={(date) => setStartTime(date)}
-                // highlightDates={new Date()}
-              />
-            </div>
+        <div className="flex justify-center items-center flex-col mt-4">
+          <div>
+            <Calendar onClickDay={handleDayClick} minDate={new Date()} />
           </div>
-
-          <div className="flex justify-center items-center">
-            <h1 className="font-semibold">Select Ending Time:</h1>
-            <div>
-              <DatePicker
-                className="m-2 w-full rounded p-3"
-                minDate={new Date()}
-                placeholderText="Select ending time"
-                showTimeSelect
-                isClearable
-                withPortal
-                filterTime={filterPassedTime}
-                filterDate={filterWeekends}
-                dateFormat="dd/MM/yyyy h:mm aa"
-                minTime={new Date(0, 0, 0, 9, 30)}
-                maxTime={new Date(0, 0, 0, 20, 0)}
-                selected={endTime}
-                onChange={(date) => setEndTime(date)}
-              />
-            </div>
-          </div>
-
-          <div className="flex items-center justify-center mt-2 pb-8">
+          {showComponent && <div className="pt-8">{renderTimeSlots()}</div>}
+          <div className="flex justify-center items-center pt-6 pb-8">
             <button
-              className="p-2 bg-colorThree text-white text-center font-medium rounded-lg w-full m-2 md:w-[25%]"
-              onClick={handleSchedule}
+              onClick={saveTimeSlots}
+              className=" text-white font-medium rounded px-6 py-2 bg-blue-600"
             >
-              Schedule an Appointment
+              {buttonContent}
             </button>
-          </div>
-
-          <div className="grid gap-2 grid-cols-5">
-            {slots && slots.length > 0
-              ? slots.map((time, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className="bg-[#f7f7f7] text-center rounded-lg mx-4 my-4 px-6 py-4 cursor-pointer"
-                    >
-                      <p className="font-bold">{time}</p>
-                    </div>
-                  );
-                })
-              : null}
           </div>
         </div>
       </div>

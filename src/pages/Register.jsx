@@ -125,7 +125,7 @@ function Register() {
                               <div>
                                 <label
                                   htmlFor="firstName"
-                                  className="block mb-2 text-sm font-medium text-colorThree dark:text-white"
+                                  className="block mb-2 text-sm font-bold text-colorThree dark:text-white"
                                 >
                                   First Name
                                 </label>
@@ -143,7 +143,7 @@ function Register() {
                               <div>
                                 <label
                                   htmlFor="lastName"
-                                  className="block mb-2 text-sm font-medium text-colorThree dark:text-white"
+                                  className="block mb-2 text-sm font-bold text-colorThree dark:text-white"
                                 >
                                   Last Name
                                 </label>
@@ -163,7 +163,7 @@ function Register() {
                               <div>
                                 <label
                                   htmlFor="email"
-                                  className="block mb-2 text-sm font-medium text-colorThree dark:text-white"
+                                  className="block mb-2 text-sm font-bold text-colorThree dark:text-white"
                                 >
                                   Email
                                 </label>
@@ -180,7 +180,7 @@ function Register() {
                               <div>
                                 <label
                                   htmlFor="role"
-                                  className="block mb-2 text-sm font-medium text-colorThree dark:text-white"
+                                  className="block mb-2 text-sm font-bold text-colorThree dark:text-white"
                                 >
                                   Select Role
                                 </label>
@@ -208,7 +208,7 @@ function Register() {
                               <div>
                                 <label
                                   htmlFor="country"
-                                  className="block mb-2 text-sm font-medium text-colorThree dark:text-white"
+                                  className="block mb-2 text-sm font-bold text-colorThree dark:text-white"
                                 >
                                   Select Your Country
                                 </label>
@@ -229,7 +229,7 @@ function Register() {
                               <div>
                                 <label
                                   htmlFor="country"
-                                  className="block mb-2 text-sm font-medium text-colorThree dark:text-white"
+                                  className="block mb-2 text-sm font-bold text-colorThree dark:text-white"
                                 >
                                   State of Residence
                                 </label>
@@ -252,7 +252,7 @@ function Register() {
                               <div>
                                 <label
                                   htmlFor="country"
-                                  className="block mb-2 text-sm font-medium text-colorThree dark:text-white"
+                                  className="block mb-2 text-sm font-bold text-colorThree dark:text-white"
                                 >
                                   Select City
                                 </label>
@@ -277,9 +277,9 @@ function Register() {
                               <div>
                                 <label
                                   htmlFor="phone-input"
-                                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                  className="block mb-2 text-sm font-bold text-gray-900 dark:text-white"
                                 >
-                                  Phone number:
+                                  Phone number
                                 </label>
                                 <div className="relative">
                                   <div className="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
@@ -314,9 +314,9 @@ function Register() {
                             <div>
                               <label
                                 htmlFor="password"
-                                className="block mb-2 text-sm font-medium text-colorThree dark:text-white"
+                                className="block mb-2 text-sm font-bold text-colorThree dark:text-white"
                               >
-                                password
+                                Password
                               </label>
                               <div className="flex flex-row">
                                 <input
@@ -371,10 +371,29 @@ function Register() {
                             </div>
                             <button
                               type="submit"
-                              className="w-full text-white bg-colorFour hover:bg-colorFour transition ease-in-out duration-1000 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                              className="w-full text-white bg-colorFour text-base hover:bg-colorFour transition ease-in-out duration-1000 focus:outline-none font-semibold rounded-lg px-5 py-2.5 text-center cursor-pointer"
                             >
                               Sign up
                             </button>
+
+                            <button className="w-full flex text-black font-medium items-center justify-center gap-x-3 py-2.5 border rounded-lg hover:bg-gray-50 duration-150 active:bg-gray-100">
+                              <img
+                                src="https://secure.meetupstatic.com/next/images/login/google.svg?w=48"
+                                alt=""
+                                className="w-5 h-5"
+                              />
+                              Continue with Google
+                            </button>
+
+                            <button className="w-full flex text-black font-medium items-center justify-center gap-x-3 py-2.5 border rounded-lg hover:bg-gray-50 duration-150 active:bg-gray-100">
+                              <img
+                                src="https://secure.meetupstatic.com/next/images/login/apple.svg?w=48"
+                                alt=""
+                                className="w-5 h-5"
+                              />
+                              Continue with Apple
+                            </button>
+
                             <div className="relative flex py-1 items-center">
                               <div className="flex-grow border-t border-gray-400"></div>
                               <span className="flex-shrink mx-4 text-gray-400 text-sm">

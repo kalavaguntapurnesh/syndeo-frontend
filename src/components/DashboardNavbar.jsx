@@ -172,7 +172,7 @@ const DashboardNavbar = () => {
                 <a
                   key={item}
                   href={item.path}
-                  className="lg:p-4 p-[11px] cursor-pointer text-colorThree font-medium lg:text-base text-xs tracking-wider"
+                  className="lg:p-4 p-[11px] cursor-pointer text-colorFour font-semibold lg:text-base text-xs tracking-wider"
                 >
                   {item?.name}
                 </a>
@@ -204,7 +204,7 @@ const DashboardNavbar = () => {
             <div className="lg:block hidden mr-8">
               <button
                 onClick={handleLogout}
-                className="py-2 px-8 bg-colorFour rounded-3xl font-semibold text-white "
+                className="py-2 px-8 bg-cdnColorTwo rounded-3xl font-medium text-white "
               >
                 Logout
               </button>
@@ -241,7 +241,7 @@ const DashboardNavbar = () => {
                 {NavbarMenu.map((item) => (
                   <div
                     key={item}
-                    className="p-4 border-b border-gray-500 text-colorThree cursor-pointer font-medium dark:text-white"
+                    className="p-4 border-b border-gray-500 text-colorFour cursor-pointer font-semibold dark:text-white"
                   >
                     <a href={item.path}>{item.name}</a>
                   </div>
@@ -257,7 +257,7 @@ const DashboardNavbar = () => {
               </div>
               <div className="uppercase mt-6 px-8" onClick={handleLogout}>
                 <a
-                  className="py-2.5 px-8 border-gray-600 cursor-pointer font-medium bg-colorFour
+                  className="py-2.5 px-8 border-gray-600 cursor-pointer font-medium bg-cdnColorTwo
         rounded-[4px] text-white text-sm"
                 >
                   Logout
