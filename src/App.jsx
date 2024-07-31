@@ -26,7 +26,9 @@ import UserSchedules from "./pages/UserSchedules";
 import MyAvailability from "./pages/MyAvailability";
 import ShareSchedule from "./pages/ShareSchedule";
 import Book from "./pages/Book";
+import UserBooking from "./pages/UserBooking";
 // import UserRegister from "./pages/UserRegister";
+import Pricing from "./pages/Pricing";
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
@@ -78,22 +80,6 @@ function App() {
               </PublicRoute>
             }
           ></Route>
-          {/* <Route
-            path="/userRegister"
-            element={
-              <PublicRoute>
-                <UserRegister />
-              </PublicRoute>
-            }
-          ></Route> */}
-          {/* <Route
-            path="/userLogin"
-            element={
-              <PublicRoute>
-                <UserLogin />
-              </PublicRoute>
-            }
-          ></Route> */}
           <Route
             path="/forgotPassword"
             element={
@@ -110,6 +96,16 @@ function App() {
               </PublicRoute>
             }
           ></Route>
+
+          <Route
+            path="/pricing"
+            element={
+              <PublicRoute>
+                <Pricing />
+              </PublicRoute>
+            }
+          ></Route>
+
           <Route
             path="/contact"
             element={
@@ -240,6 +236,15 @@ function App() {
             element={
               <PublicRoute>
                 <ShareSchedule />
+              </PublicRoute>
+            }
+          ></Route>
+
+          <Route
+            path="/userBook/:id/:timeSlot/:slotId"
+            element={
+              <PublicRoute>
+                <UserBooking />
               </PublicRoute>
             }
           ></Route>

@@ -91,8 +91,8 @@ const Profile = () => {
 
   return (
     <Layout>
-      <h1 className="font-bold text-colorFour text-center tracking-normal text-2xl leading-relaxed ">
-        Update Profile
+      <h1 className="font-bold text-colorFour text-center tracking-normal text-2xl leading-relaxed uppercase">
+        Update <span className="text-cdnColorTwo">Your</span> Profile
       </h1>
 
       {customer && (

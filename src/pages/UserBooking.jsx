@@ -4,60 +4,45 @@ import { showLoading, hideLoading } from "../redux/features/alertSlice";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { MdOutlineCancel } from "react-icons/md";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const Modal = ({ isVisible, onClose, id, startTime, endTime, slots }) => {
+const UserBooking = (props) => {
   const dispatch = useDispatch();
-
+  const params = useParams();
   const [userFirstName, setUserFirstName] = useState("");
   const [userLastName, setUserLastName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [secondaryEmail, setSecondaryEmail] = useState("");
-  const [subject, setSubject] = useState("");
   const [description, setDescription] = useState("");
 
-  console.log("Available slots are: ", slots);
+  const navigate = useNavigate();
 
-  if (!isVisible) return null;
-
-  const handleClose = (e) => {
-    if (e.target.id === "wrapper") onClose();
-  };
-
-  const handleSubmit = (e) => {
+  const bookSlot = async (e) => {
     e.preventDefault();
-    dispatch(showLoading());
     axios
-      .post("https://syndeo-backend.onrender.com/auth/userBook", {
-        organizerId: id,
-        startTime: startTime,
-        endTime: endTime,
-        userEmail,
-        userFirstName,
-        userLastName,
-        secondaryEmail,
-        subject,
-        description,
-        isBooked: true,
+      .post("http://localhost:8080/auth/bookTimeSlots", {
+        slotId: params.slotId,
+        bookedFirstName: userFirstName,
+        bookedLastName: userLastName,
+        bookedEmail: userEmail,
+        bookedSecndEmail: secondaryEmail,
+        description: description,
       })
       .then((response) => {
-        dispatch(hideLoading());
         if (response.data.status) {
-          console.log(response.data);
           Swal.fire({
+            title: "Slot Booking Success",
+            text: "Check your email",
             icon: "success",
-            title: "Slot Booked Successfully !!!",
-            text: "The details are notified. Please check the email",
           });
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Incorrect Credentials !!!",
-            text: "The username and/or password doesn't match. Please enter valid username and correct password.",
-          });
+          setTimeout(function () {
+            window.location.reload();
+            navigate(-1);
+          }, 1500);
         }
       })
       .catch((error) => {
-        dispatch(hideLoading());
         console.log(error);
         Swal.fire({
           icon: "error",
@@ -70,13 +55,12 @@ const Modal = ({ isVisible, onClose, id, startTime, endTime, slots }) => {
   return (
     <div
       className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-xs flex justify-center items-center z-20 "
-      onClick={handleClose}
       id="wrapper"
     >
       <div className="flex flex-col items-center justify-center bg-white rounded-lg ">
         <button
           className="text-black text-xl place-self-end mr-3 mt-2 p-1"
-          onClick={() => onClose()}
+          onClick={() => navigate(-1)}
         >
           <MdOutlineCancel />
         </button>
@@ -84,14 +68,14 @@ const Modal = ({ isVisible, onClose, id, startTime, endTime, slots }) => {
           <div className="w-full bg-white  dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-4 sm:p-8">
               <h1 className="text-xl text-center font-medium md:text-2xl dark:text-white text-colorFour">
-                Fill the details to book the slot
+                Fill details & book the slot {params.timeSlot}
               </h1>
-              <form className="space-y-2 md:space-y-6" onSubmit={handleSubmit}>
+              <form className="space-y-2 md:space-y-6" onSubmit={bookSlot}>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label
                       htmlFor="email"
-                      className="block mb-2 text-sm font-medium text-colorThree dark:text-white"
+                      className="block mb-2 text-sm font-semibold text-colorThree dark:text-white"
                     >
                       First Name
                     </label>
@@ -108,7 +92,7 @@ const Modal = ({ isVisible, onClose, id, startTime, endTime, slots }) => {
                   <div>
                     <label
                       htmlFor="email"
-                      className="block mb-2 text-sm font-medium text-colorThree dark:text-white"
+                      className="block mb-2 text-sm font-semibold text-colorThree dark:text-white"
                     >
                       Last Name
                     </label>
@@ -126,7 +110,7 @@ const Modal = ({ isVisible, onClose, id, startTime, endTime, slots }) => {
                   <div>
                     <label
                       htmlFor="email"
-                      className="block mb-2 text-sm font-medium text-colorThree dark:text-white"
+                      className="block mb-2 text-sm font-semibold text-colorThree dark:text-white"
                     >
                       Email
                     </label>
@@ -144,7 +128,7 @@ const Modal = ({ isVisible, onClose, id, startTime, endTime, slots }) => {
                   <div>
                     <label
                       htmlFor="email"
-                      className="block mb-2 text-sm font-medium text-colorThree dark:text-white"
+                      className="block mb-2 text-sm font-semibold text-colorThree dark:text-white"
                     >
                       Secondary Email
                     </label>
@@ -154,33 +138,16 @@ const Modal = ({ isVisible, onClose, id, startTime, endTime, slots }) => {
                       id="secEmail"
                       className=" border border-gray-300 text-gray-900 md:text-sm text-xs rounded-md focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="name@domain.com"
-                      required="true"
+                      // required="true"
                       onChange={(e) => setSecondaryEmail(e.target.value)}
                     ></input>
                   </div>
-
+                </div>
+                <div className="grid grid-cols-1">
                   <div>
                     <label
                       htmlFor="email"
-                      className="block mb-2 text-sm font-medium text-colorThree dark:text-white"
-                    >
-                      Subject
-                    </label>
-                    <input
-                      type="text"
-                      name="description"
-                      id="description"
-                      className=" border border-gray-300 text-gray-900 md:text-sm text-xs rounded-md focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="Your Subject"
-                      required="true"
-                      onChange={(e) => setSubject(e.target.value)}
-                    ></input>
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block mb-2 text-sm font-medium text-colorThree dark:text-white"
+                      className="block mb-2 text-sm font-semibold text-colorThree dark:text-white"
                     >
                       Description
                     </label>
@@ -196,26 +163,10 @@ const Modal = ({ isVisible, onClose, id, startTime, endTime, slots }) => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1">
-                  <div>
-                    <label
-                      htmlFor="role"
-                      className="block mb-2 text-sm font-medium text-colorThree dark:text-white"
-                    >
-                      Select your time slot
-                    </label>
-                    <select className=" border border-gray-300 text-gray-900 sm:text-sm rounded-md focus:ring-primary-600 focus:border-primary-600 block w-full py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                      {slots.map((key, item) => (
-                        <option key={item}>{key}</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                <div className="pt-4">
+                <div className="pt-1">
                   <button
                     type="submit"
-                    className="mt-4 w-full text-white bg-colorFour hover:bg-colorFour transition ease-in-out duration-1000 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center cursor-pointer"
+                    className="mt-4 w-full text-white bg-colorFour hover:bg-colorFour transition ease-in-out duration-1000 focus:outline-none rounded-lg text-base font-semibold px-5 py-2.5 text-center cursor-pointer"
                   >
                     Book the Slot
                   </button>
@@ -229,4 +180,4 @@ const Modal = ({ isVisible, onClose, id, startTime, endTime, slots }) => {
   );
 };
 
-export default Modal;
+export default UserBooking;

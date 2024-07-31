@@ -21,15 +21,15 @@ const Navbar = () => {
             </div>
 
             <ul className="hidden md:flex md:pt-4 ">
-              <li className="lg:p-4 group p-[11px] cursor-pointer text-colorThree font-medium text-base tracking-wider transition duration-1000 ">
+              <li className="lg:p-4 group p-[11px] cursor-pointer text-colorFour font-semibold text-base tracking-wider transition duration-1000 ">
                 <a href="/">Home</a>
                 <div className="bg-colorFour h-[2px] w-0 group-hover:w-full transition-all duration-500"></div>
               </li>
-              <li className="lg:p-4 p-[11px] group cursor-pointer text-colorThree font-medium text-base tracking-wider transition duration-1000 ">
+              <li className="lg:p-4 p-[11px] group cursor-pointer text-colorFour font-semibold text-base tracking-wider transition duration-1000 ">
                 <a href="/about">About Us</a>
                 <div className="bg-colorFour h-[2px] w-0 group-hover:w-full transition-all duration-500"></div>
               </li>
-              <li className="lg:p-4 p-[11px] group cursor-pointer text-colorThree font-medium text-base tracking-wider transition duration-1000 ">
+              <li className="lg:p-4 p-[11px] group cursor-pointer text-colorFour font-semibold text-base tracking-wider transition duration-1000 ">
                 <a href="/contact">Contact</a>
                 <div className="bg-colorFour h-[2px] w-0 group-hover:w-full transition-all duration-500"></div>
               </li>
@@ -37,7 +37,7 @@ const Navbar = () => {
                 <a
                   href="/login"
                   className="bg-colorFour hover:bg-colorFour transition ease-in-out duration-1000
-        rounded-3xl text-white px-8 py-2.5 text-center"
+        rounded-3xl text-white px-8 py-2.5 text-center font-semibold"
                 >
                   Login / Register{" "}
                 </a>
