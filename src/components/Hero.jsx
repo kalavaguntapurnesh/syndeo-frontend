@@ -15,7 +15,7 @@ const Hero = () => {
 
           <div className="flex items-center lg:justify-start justify-center mx-3">
             <h1 className="lg:text-[24px] text-[24px] font-semibold lg:px-2 lg:text-start text-center text-colorFive">
-              Want to know how this happens ?
+              Want to know virat this happens ?
             </h1>
           </div>
 
