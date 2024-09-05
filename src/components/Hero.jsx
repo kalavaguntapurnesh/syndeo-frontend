@@ -9,7 +9,7 @@ const Hero = () => {
           <div className=" flex items-center lg:justify-start justify-center mt-4 mx-3">
             <h1 className="xl:text-6xl text-[48px] font-bold lg:px-2 xl:leading-[72px] lg:leading-[60px] lg:text-start text-center text-colorFive">
               Find & Book your dream
-              <span className="text-colorFour"> appointment with virat kohli.</span>
+              <span className="text-colorFour"> appointment with us.</span>
             </h1>
           </div>
 
