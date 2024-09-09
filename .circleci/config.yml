@@ -20,7 +20,7 @@ jobs:
       - run:
           name: Sync to S3
           command: |
-            aws s3 sync ./dist s3://syndeo-main --delete
+            aws s3 sync ./dist s3://syndeo-frontend --delete
           
 workflows:
   version: 2
