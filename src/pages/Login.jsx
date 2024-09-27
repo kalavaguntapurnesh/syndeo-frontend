@@ -30,15 +30,16 @@ function Login() {
     e.preventDefault();
     dispatch(showLoading());
     axios
-      .post("https://syndeo-backend.onrender.com/auth/login", {
+      .post("http://localhost:8080/api/v1/login", {
         email,
         password,
       })
       .then((response) => {
         // window.location.reload();
         dispatch(hideLoading());
-        if (response.data.status) {
+        if (response.status === 200) {
           localStorage.setItem("token", response.data.token);
+          console.log(response.data.token);
           navigate("/dashboard");
         } else {
           Swal.fire({

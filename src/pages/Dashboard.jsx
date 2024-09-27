@@ -20,58 +20,58 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [counterOn, setCounterOn] = useState(false);
 
-  console.log(user?.notification.length);
+  // console.log(user?.notification.length);
 
   let notificationLength = user?.notification.length;
 
-  const getMySchedules = async () => {
-    try {
-      const response = await axios.post(
-        "https://syndeo-backend.onrender.com/auth/existingSchedules",
-        { doctorId: user?._id },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+  // const getMySchedules = async () => {
+  //   try {
+  //     const response = await axios.post(
+  //       "https://syndeo-backend.onrender.com/auth/existingSchedules",
+  //       { doctorId: user?._id },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //         },
+  //       }
+  //     );
 
-      if (response.data.status) {
-        setSchedules(response.data.data);
-      }
-    } catch (error) {
-      console.log(error);
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Something went wrong!",
-      });
-    }
-  };
+  //     if (response.data.status) {
+  //       setSchedules(response.data.data);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Oops...",
+  //       text: "Something went wrong!",
+  //     });
+  //   }
+  // };
 
-  const getSchedules = async () => {
-    try {
-      const response = await axios.post(
-        "https://syndeo-backend.onrender.com/auth/userSchedules",
-        { doctorId: user?._id },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      if (response.data.status) {
-        setMySchedules(response.data.data);
-      }
-    } catch (error) {
-      console.log(error);
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Something went wrong!",
-      });
-    }
-  };
+  // const getSchedules = async () => {
+  //   try {
+  //     const response = await axios.post(
+  //       "https://syndeo-backend.onrender.com/auth/userSchedules",
+  //       { doctorId: user?._id },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //         },
+  //       }
+  //     );
+  //     if (response.data.status) {
+  //       setMySchedules(response.data.data);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Oops...",
+  //       text: "Something went wrong!",
+  //     });
+  //   }
+  // };
 
   const getCustomerInfo = async () => {
     try {
@@ -102,15 +102,15 @@ const Dashboard = () => {
     //eslint-disable-next-line
   }, []);
 
-  useEffect(() => {
-    getMySchedules();
-    //eslint-disable-next-line
-  }, []);
+  // useEffect(() => {
+  //   getMySchedules();
+  //   //eslint-disable-next-line
+  // }, []);
 
-  useEffect(() => {
-    getSchedules();
-    //eslint-disable-next-line
-  }, []);
+  // useEffect(() => {
+  //   getSchedules();
+  //   //eslint-disable-next-line
+  // }, []);
 
   return (
     <div>

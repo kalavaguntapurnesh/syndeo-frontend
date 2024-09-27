@@ -12,10 +12,10 @@ function Home() {
     <div>
       <Navbar />
       <Hero />
-      <TrackRecord />
+      {/* <TrackRecord /> */}
       <Carousel />
-      <FAQ />
-      <Final/>
+      {/* <FAQ /> */}
+      <Final />
       <Footer />
     </div>
   );

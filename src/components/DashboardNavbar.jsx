@@ -51,21 +51,6 @@ const DashboardNavbar = () => {
       path: "/dashboard",
       icon: FaHome,
     },
-    {
-      name: "Facilitators",
-      path: "/admin/facilitators",
-      icon: LiaToolsSolid,
-    },
-    {
-      name: "Organizers",
-      path: "/admin/organizers",
-      icon: MdOutlineTimer,
-    },
-    {
-      name: "Participants",
-      path: "/admin/users",
-      icon: MdOutlineTimer,
-    },
   ];
 
   const userMenu = [
@@ -86,74 +71,54 @@ const DashboardNavbar = () => {
     // },
   ];
 
-  const facilitatorMenu = [
+  const orgAdminMenu = [
     {
-      name: "Create Schedule",
+      name: "Dashboard",
       path: "/dashboard",
       icon: FaHome,
     },
     {
-      name: "Organizers",
-      path: "/facilitator/organizers",
-      icon: MdOutlineTimer,
-    },
-    {
-      name: "Participants",
-      path: "/participants",
+      name: "Add Employees",
+      path: `/addEmployees/${user?._id}`,
       icon: FaHome,
     },
     {
-      name: "My Schedules",
-      path: "/participants",
+      name: "Display Employees",
+      path: `/allEmployees/${user?._id}`,
       icon: FaHome,
     },
     {
-      name: "Upcoming Schedules",
+      name: "Staff Information",
       path: `/existingSchedules/${user?._id}`,
       icon: FaHome,
     },
-    // {
-    //   name: "Profile",
-    //   path: `/profile/${user?._id}`,
-    //   icon: FaRegUser,
-    // },
   ];
 
-  const organizerMenu = [
+  const employeeMenu = [
     {
-      name: "Create Schedule",
+      name: "Dashboard",
       path: "/dashboard",
       icon: FaHome,
     },
     {
-      name: "Participants",
-      path: "/participants",
+      name: "Make Schedules",
+      path: `/addEmployees/${user?._id}`,
       icon: FaHome,
     },
     {
-      name: "Upcoming Schedules",
+      name: "Past Schedules",
       path: `/existingSchedules/${user?._id}`,
       icon: FaHome,
     },
-    {
-      name: "My Availability",
-      path: `/myAvailability/${user?._id}`,
-      icon: FaHome,
-    },
-    // {
-    //   name: "Profile",
-    //   path: `/profile/${user?._id}`,
-    //   icon: FaRegUser,
-    // },
   ];
 
   const NavbarMenu =
-    user?.role === "facilitator"
-      ? facilitatorMenu
-      : user?.role === "organizer"
-      ? organizerMenu
-      : user?.role === "participant"
+    user?.role === "individual"
       ? userMenu
+      : user?.role === "organization"
+      ? orgAdminMenu
+      : user?.role === "employee"
+      ? employeeMenu
       : adminMenu;
 
   return (

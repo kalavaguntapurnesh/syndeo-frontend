@@ -29,6 +29,8 @@ import Book from "./pages/Book";
 import UserBooking from "./pages/UserBooking";
 // import UserRegister from "./pages/UserRegister";
 import Pricing from "./pages/Pricing";
+import AddEmployees from "./pages/AddEmployees";
+import AllEmployees from "./pages/AllEmployees";
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
@@ -191,6 +193,24 @@ function App() {
             element={
               <ProtectedRoute>
                 <ExistingSchedules />
+              </ProtectedRoute>
+            }
+          ></Route>
+
+          <Route
+            path="/addEmployees/:id"
+            element={
+              <ProtectedRoute>
+                <AddEmployees />
+              </ProtectedRoute>
+            }
+          ></Route>
+
+          <Route
+            path="/allEmployees/:id"
+            element={
+              <ProtectedRoute>
+                <AllEmployees />
               </ProtectedRoute>
             }
           ></Route>

@@ -60,7 +60,7 @@ const Profile = () => {
     try {
       dispatch(showLoading());
       const res = await axios.post(
-        "https://syndeo-backend.onrender.com/auth/updateProfile",
+        "http://localhost:8080/api/v1/updateProfile",
         {
           ...values,
           userId: user._id,
@@ -73,7 +73,7 @@ const Profile = () => {
         }
       );
       dispatch(hideLoading());
-      if (res.data.status) {
+      if (res.status === 200) {
         Swal.fire({
           title: "Profile Updated Successfully",
           icon: "success",
