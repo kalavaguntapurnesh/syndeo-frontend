@@ -63,7 +63,7 @@ function App() {
         <Route path="/pricing" element={<Pricing />}></Route>
 
         <Route path="/contact" element={<Contact />}></Route>
-        <Route
+        {/* <Route
           path="/dashboard"
           element={
             <ProtectedRoute>
@@ -223,7 +223,7 @@ function App() {
               <Notifications />
             </ProtectedRoute>
           }
-        ></Route>
+        ></Route> */}
       </Routes>
       {/* )} */}
     </BrowserRouter>
