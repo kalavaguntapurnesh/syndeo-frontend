@@ -41,14 +41,7 @@ function App() {
         <Spinner />
       ) : (
         <Routes>
-          <Route
-            path="/"
-            element={
-              <PublicRoute>
-                <Home />
-              </PublicRoute>
-            }
-          ></Route>
+          <Route path="/" element={<Home />}></Route>
           <Route
             path="/about"
             element={
@@ -57,65 +50,19 @@ function App() {
               </PublicRoute>
             }
           ></Route>
-          <Route
-            path="/login"
-            element={
-              <PublicRoute>
-                <Login />
-              </PublicRoute>
-            }
-          ></Route>
+          <Route path="/login" element={<Login />}></Route>
 
-          <Route
-            path="/privacy"
-            element={
-              <PublicRoute>
-                <Privacy />
-              </PublicRoute>
-            }
-          ></Route>
-          <Route
-            path="/register"
-            element={
-              <PublicRoute>
-                <Register />
-              </PublicRoute>
-            }
-          ></Route>
-          <Route
-            path="/forgotPassword"
-            element={
-              <PublicRoute>
-                <ForgotPassword />
-              </PublicRoute>
-            }
-          ></Route>
+          <Route path="/privacy" element={<Privacy />}></Route>
+          <Route path="/register" element={<Register />}></Route>
+          <Route path="/forgotPassword" element={<ForgotPassword />}></Route>
           <Route
             path="/resetPassword/:id/:token"
-            element={
-              <PublicRoute>
-                <ResetPassword />
-              </PublicRoute>
-            }
+            element={<ResetPassword />}
           ></Route>
 
-          <Route
-            path="/pricing"
-            element={
-              <PublicRoute>
-                <Pricing />
-              </PublicRoute>
-            }
-          ></Route>
+          <Route path="/pricing" element={<Pricing />}></Route>
 
-          <Route
-            path="/contact"
-            element={
-              <PublicRoute>
-                <Contact />
-              </PublicRoute>
-            }
-          ></Route>
+          <Route path="/contact" element={<Contact />}></Route>
           <Route
             path="/dashboard"
             element={
